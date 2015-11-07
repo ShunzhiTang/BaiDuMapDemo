@@ -8,16 +8,26 @@
 
 #import "AppDelegate.h"
 
-@interface AppDelegate ()
+#import <BaiduMapAPI_Map/BMKMapComponent.h>
+
+BMKMapManager *_mapManager;
+@interface AppDelegate () <BMKGeneralDelegate>
 
 @end
 
 @implementation AppDelegate
 
-
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 
-    //要是哟你好好
+    //启动 BMKMapManager
+    _mapManager = [[BMKMapManager alloc] init];
+    BOOL ret = [_mapManager start:@"2HvNEr6ny2IGuxLgHvS4GGaP" generalDelegate:nil];
+    
+    if (!ret) {
+        NSLog(@"manage  start fail");
+    }
+    
+    
     return YES;
 }
 
@@ -43,4 +53,26 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
+#pragma  mark 代理方法
+
+- (void)onGetNetworkState:(int)iError
+{
+    if (0 == iError) {
+        NSLog(@"联网成功");
+    }
+    else{
+        NSLog(@"onGetNetworkState %d",iError);
+    }
+    
+}
+
+- (void)onGetPermissionState:(int)iError
+{
+    if (0 == iError) {
+        NSLog(@"授权成功");
+    }
+    else {
+        NSLog(@"onGetPermissionState %d",iError);
+    }
+}
 @end

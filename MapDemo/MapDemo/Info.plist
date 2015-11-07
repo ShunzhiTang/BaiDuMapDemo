@@ -52,5 +52,7 @@
 	<array>
 		<string>baidumap</string>
 	</array>
+	<key>CFBundleDisplayName</key>
+	<string>你好啊</string>
 </dict>
 </plist>
